@@ -1,9 +1,9 @@
 <launch>
-  
+  <arg name="port" default="/dev/ttyUSB0" />
+
   <!-- Start the DirectedPerception PTU47 unit driver -->
   <node pkg="dp_ptu47_pan_tilt_stage" type="dp_ptu47" name="dp_ptu47" output="screen">
-    <param name="port" value="/dev/ttyUSB3" />
+    <param name="port" value="$(arg port)" />
     <param name="reset_on_start" value="1" />
   </node>
-
 </launch>
