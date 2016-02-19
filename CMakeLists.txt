@@ -1,21 +1,90 @@
-cmake_minimum_required (VERSION 2.4.6)
+cmake_minimum_required(VERSION 2.8.3)
 
-include ($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-set (ROS_BUILD_TYPE RelWithDebInfo)
-#set (ROS_BUILD_TYPE Debug)
-rosbuild_init ()
-rosbuild_gensrv ()
-rosbuild_genmsg ()
+project(dp_ptu47_pan_tilt_stage)
 
-set (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cv_bridge
+    dynamic_reconfigure
+    message_generation
+    opencv2
+    #pcl
+    roscpp
+    sensor_msgs
+    tf
+    visualization_msgs
+)
 
-# Enable dynamic_reconfigure
-rosbuild_find_ros_package (dynamic_reconfigure)
-include (${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
-gencfg ()
 
-rosbuild_add_executable (dp_ptu47 src/dp_ptu47.cpp)
-rosbuild_add_executable (dp_ptu47_trigger src/dp_ptu47_trigger.cpp)
+add_message_files(
+  DIRECTORY
+    msg
+  FILES
+    PanTilt.msg
+    PanTiltStamped.msg
+)
+
+add_service_files(
+  DIRECTORY
+    srv
+  FILES
+    GetLimits.srv
+    Reset.srv
+    SendCommand.srv
+    SendTrajectory.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+    sensor_msgs
+    visualization_msgs
+)
+
+
+generate_dynamic_reconfigure_options(cfg/DpPtu47.cfg)
+
+
+catkin_package(
+  CATKIN_DEPENDS
+    cv_bridge
+    dynamic_reconfigure
+    message_runtime
+    opencv2
+    #pcl
+    roscpp
+    sensor_msgs
+    tf
+    visualization_msgs
+)
+
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+
+add_executable(${PROJECT_NAME}_dp_ptu47 src/dp_ptu47.cpp)
+target_link_libraries(${PROJECT_NAME}_dp_ptu47 ${catkin_LIBRARIES})
+set_target_properties(${PROJECT_NAME}_dp_ptu47 PROPERTIES OUTPUT_NAME dp_ptu47 PREFIX "")
+add_dependencies(${PROJECT_NAME}_dp_ptu47 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(${PROJECT_NAME}_dp_ptu47_trigger src/dp_ptu47_trigger.cpp)
+target_link_libraries(${PROJECT_NAME}_dp_ptu47_trigger ${catkin_LIBRARIES})
+set_target_properties(${PROJECT_NAME}_dp_ptu47_trigger PROPERTIES OUTPUT_NAME dp_ptu47_trigger PREFIX "")
+add_dependencies(${PROJECT_NAME}_dp_ptu47_trigger ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 # Once the PTU unit is calibrated with respect to /base_link, this can create that TF frame
-rosbuild_add_executable (ptu_transform_publisher_calibration src/ptu_transform_publisher_calibration.cpp)
+add_executable(${PROJECT_NAME}_ptu_transform_publisher_calibration src/ptu_transform_publisher_calibration.cpp)
+target_link_libraries(${PROJECT_NAME}_ptu_transform_publisher_calibration ${catkin_LIBRARIES})
+set_target_properties(${PROJECT_NAME}_ptu_transform_publisher_calibration PROPERTIES OUTPUT_NAME ptu_transform_publisher_calibration PREFIX "")
+add_dependencies(${PROJECT_NAME}_ptu_transform_publisher_calibration ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+install(
+  TARGETS
+    ${PROJECT_NAME}_dp_ptu47
+    ${PROJECT_NAME}_dp_ptu47_trigger
+    ${PROJECT_NAME}_ptu_transform_publisher_calibration
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

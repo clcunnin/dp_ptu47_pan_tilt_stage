@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dp_ptu47_pan_tilt_stage</name>
+  <version>0.1.0</version>
+  <description>
+    <p>
+      ROS driver for DirectedPerception Pan-Tilt-Units (PTU-47).
+    </p>
+    <p>
+      The driver provides an easily accessible service for position
+      commands.
+    </p>
+    <p>
+      Note: this is a catkinised version of the original C-Turtle
+      version written by Radu Bogdan Rusu.
+    </p>
+  </description>
+  <author>Radu Bogdan Rusu</author>
+  <maintainer email="g.a.vanderhoorn@tudelft.nl">G.A. vd. Hoorn (TU Delft Robotics Institute)</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+
+  <depend>dynamic_reconfigure</depend>
+  <depend>sensor_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>opencv2</exec_depend>
+  <!-- exec_depend>pcl</exec_depend -->
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>tf</exec_depend>
+</package>
