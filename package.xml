@@ -24,13 +24,12 @@
   <build_depend>message_generation</build_depend>
 
   <depend>dynamic_reconfigure</depend>
+  <depend>geometry_msgs</depend>
+  <depend>message_filters</depend>
+  <depend>roscpp</depend>
   <depend>sensor_msgs</depend>
+  <depend>tf</depend>
   <depend>visualization_msgs</depend>
 
-  <exec_depend>cv_bridge</exec_depend>
   <exec_depend>message_runtime</exec_depend>
-  <exec_depend>opencv2</exec_depend>
-  <!-- exec_depend>pcl</exec_depend -->
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>tf</exec_depend>
 </package>

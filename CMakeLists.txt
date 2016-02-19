@@ -4,11 +4,10 @@ project(dp_ptu47_pan_tilt_stage)
 
 find_package(catkin REQUIRED
   COMPONENTS
-    cv_bridge
     dynamic_reconfigure
+    geometry_msgs
+    message_filters
     message_generation
-    opencv2
-    #pcl
     roscpp
     sensor_msgs
     tf
@@ -46,11 +45,10 @@ generate_dynamic_reconfigure_options(cfg/DpPtu47.cfg)
 
 catkin_package(
   CATKIN_DEPENDS
-    cv_bridge
     dynamic_reconfigure
+    geometry_msgs
+    message_filters
     message_runtime
-    opencv2
-    #pcl
     roscpp
     sensor_msgs
     tf
