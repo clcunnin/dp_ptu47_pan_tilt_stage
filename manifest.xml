@@ -1,0 +1,26 @@
+<package>
+  <description>
+    <p>
+      DP_PTU47 controls a DirectedPerception Pan-Tilt-Unit (PTU-47). The driver provides an easily accessible service for position commands.
+    </p>
+  </description>
+
+  <author>Radu Bogdan Rusu</author>
+  <license>BSD</license>
+  <url>http://pr.willowgarage.com</url>
+  <review status="experimental" notes="beta"/>
+
+  <depend package="roscpp" />
+  <depend package="dynamic_reconfigure"/>
+  <depend package="cv_bridge"/>
+  <depend package="opencv2"/>
+  <depend package="tf"/>
+  <depend package="pcl"/>
+  <depend package="sensor_msgs"/>
+  <depend package="visualization_msgs"/>
+  <depend package="cv_bridge"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/srv/cpp -I${prefix}/msg/cpp" />
+  </export>
+</package>

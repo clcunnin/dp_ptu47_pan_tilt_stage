@@ -1,0 +1,1 @@
+rosrecord /narrow_stereo/left/image_raw /narrow_stereo/right/image_raw /narrow_stereo/left/camera_info /narrow_stereo/right/camera_info /narrow_stereo_textured/left/image_raw /narrow_stereo_textured/right/image_raw /narrow_stereo_textured/left/camera_info /narrow_stereo_textured/right/camera_info /dp_ptu47/pan_tilt_status /dp_ptu47/pan_tilt_status_stamped /tf

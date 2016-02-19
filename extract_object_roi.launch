@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find dp_ptu47_pan_tilt_stage)/ptu_calibrated.launch" />
+  <node pkg="dp_ptu47_pan_tilt_stage" type="extract_object_roi" name="extract_object_roi" output="screen">
+    <remap from="cloud_in" to="/narrow_stereo_textured/points2"/>
+    <remap from="cloud_out" to="cloud_rectified"/>
+  </node>
+  <!--<param name="use_sim_time" value="true" />-->
+</launch>

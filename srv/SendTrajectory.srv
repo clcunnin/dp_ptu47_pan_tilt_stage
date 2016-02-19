@@ -1,0 +1,6 @@
+float32[] pan_angles
+float32[] tilt_angles
+float32 tolerance
+---
+float32 pan_angle
+float32 tilt_angle

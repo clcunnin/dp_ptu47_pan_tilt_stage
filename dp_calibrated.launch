@@ -1,0 +1,11 @@
+<launch>
+
+  <!-- Load the calibration values (PTU47 pose to head cart) and send them as TF transforms -->
+  <include file="$(find pr2_defs)/launch/upload_hcc.launch" />
+  <node pkg="dp_ptu47_pan_tilt_stage" type="ptu_transform_publisher_calibration" name="ptu_transform_publisher_calibration" output="screen">
+    <remap from="/pan_tilt_stamped" to="/dp_ptu47/pan_tilt_status_stamped" />
+  </node>
+  <!-- All parameters related to the position and size of the table are in a yaml file -->
+  <rosparam ns="ptu" command="load" file="$(find dp_ptu47_pan_tilt_stage)/ptu_calibration.yaml" />
+  <param name="/ptu/table_size" value="0.507" />
+</launch>

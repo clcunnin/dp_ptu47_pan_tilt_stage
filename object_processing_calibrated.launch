@@ -1,0 +1,30 @@
+<launch>
+  <include file="$(find dp_ptu47_pan_tilt_stage)/ptu_calibrated.launch" />
+  <node pkg="dp_ptu47_pan_tilt_stage" type="extract_single_object_cluster_pcl" name="extract_single_object_cluster_pcl" output="screen">
+    <remap from="cloud_in" to="/narrow_stereo_textured/points2"/>
+    <remap from="image_in" to="/narrow_stereo/left/image_rect"/>
+    <remap from="image_textured_in" to="/narrow_stereo_textured/left/image_rect"/>
+    <remap from="cloud_out" to="cloud_rectified"/>
+  </node>
+  <param name="save_to_files" value="false" />
+  <!--<param name="use_sim_time" value="true" />-->
+
+  <!-- Stereo processing to generate the untextured rectified image -->
+  <!--  <node ns="narrow_stereo" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen">
+    <remap from="points" to="garbage/points"/>
+    <param name="disparity_range" value="128"/>
+  </node-->
+
+  <!-- Stereo processing to generate the textured point cloud -->
+  <!--node ns="narrow_stereo_textured" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen">
+    <remap from="points" to="old_format/points"/>
+    <param name="disparity_range" value="128"/>
+  </node>-->
+
+  <!-- Alternatively, simply convert the point cloud (does not create u,v channels though)
+  <node pkg="point_cloud_converter" type="point_cloud_converter" args="new-to-old" name="point_cloud_converter" output="screen">
+    <remap from="cloud_in" to="/narrow_stereo_textured/points"/>
+    <remap from="cloud_out" to="/narrow_stereo_textured/old_format/points"/>
+  </node>
+  -->
+</launch>
